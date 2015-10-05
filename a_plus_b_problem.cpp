@@ -1,7 +1,7 @@
 /*
 Write a function that add two numbers A and B. You should not use + or any arithmetic operators.
 
-Have you met this question in a real interview? Yes
+
 Example
 Given a=1 and b=2 return 3
 
