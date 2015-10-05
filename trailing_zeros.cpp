@@ -12,7 +12,7 @@ O(log N) time
 #include "header.h"
 
 long long trailingZeros(long long n) {
-
+     
 }
 
 int main(){
