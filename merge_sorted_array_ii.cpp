@@ -16,6 +16,14 @@ How can you optimize your algorithm if one array is very large and the other is 
 #include "header.h"
 
 vector<int> mergeSortedArray(vector<int> &A, vector<int> &B) {
+    int a_sz = A.size(), b_sz = B.size();
+    vector<int> res(a_sz+b_sz, 0);
+    int a_curr = 0, b_curr = 0, tail = -1;
+    while(a_curr<a_sz || b_curr<b_sz){
+        if(b_curr == b_sz || a_curr<a_sz && A[a_curr]<B[b_curr]) res[++tail] = A[a_curr++];
+        else res[++tail] = B[b_curr++];
+    }
+    return res;
 }
 
 int main(){
