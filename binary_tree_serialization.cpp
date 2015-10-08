@@ -39,7 +39,21 @@ public:
      * can be easily deserialized by your own "deserialize" method later.
      */
     string serialize(TreeNode *root) {
-        // write your code here
+        if(!root) return "";
+        queue<TreeNode*> q;
+        q.push(root);
+        string res = to_string(root->val)+",";
+        while(!q.empty()){
+            TreeNode* curr = q.front();
+            q.pop();
+            res += curr->left?to_string(curr->left->val):"#";
+            res += ",";
+            if(curr->left) q.push(curr->left);
+            res += curr->right?to_string(curr->right->val):"#";
+            res += ",";
+            if(curr->right) q.push(curr->right);
+        }
+        return res;
     }
 
     /**
@@ -50,10 +64,42 @@ public:
      * "serialize" method.
      */
     TreeNode *deserialize(string data) {
-        // write your code here
+        if(data.length() == 0) return NULL;
+        stringstream ss(data);
+        string temp;
+        getline(ss, temp, ',');
+        queue<TreeNode*> q;
+        TreeNode* root = new TreeNode(stoi(temp));
+        q.push(root);
+        while(!q.empty()){
+            TreeNode* curr = q.front();
+            q.pop();
+            string left, right;
+            getline(ss, left, ',');
+            getline(ss, right, ',');
+            TreeNode* left_n = NULL, *right_n = NULL;
+            if(left != "#"){
+                left_n = new TreeNode(stoi(left));
+                q.push(left_n);
+            }
+            if(right != "#"){
+                right_n = new TreeNode(stoi(right));
+                q.push(right_n);
+            }
+            curr->left=left_n;
+            curr->right = right_n;
+        }
+        return root;
     }
 };
 
 int main(){
+    vector<string> v = {"3","9","20","#","#","15","7"};
+    TreeNode* root = create_tree(v);
+    Solution s;
+    string tree_str = s.serialize(root);
+    cout<<tree_str<<endl;
+    TreeNode* new_root = s.deserialize(tree_str);
+    pre_order(new_root);
     return 0;
 }
