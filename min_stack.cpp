@@ -1,7 +1,6 @@
 /*
 Medium Min Stack
 
-29% Accepted
 Implement a stack with min() function, which will return the smallest number in the stack.
 
 It should support push, pop and min operation all in O(1) cost.
