@@ -14,7 +14,15 @@ If the count of numbers is bigger than 2^32, can your code work properly?
 #include "header.h"
 
 int binarySearch(vector<int> &array, int target) {
-
+    long long sz = array.size();
+    long long l = 0, r = sz-1;
+    while(l+1<r){
+        long long m = l+(r-l)/2;
+        if(array[m]>target) r=m-1;
+        else if(array[m]<target) l=m+1;
+        else r=m;
+    }
+    return array[l] == target?l:array[r] == target?r:-1;
 }
 
 int main(){
