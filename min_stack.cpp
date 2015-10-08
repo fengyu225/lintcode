@@ -16,21 +16,25 @@ min operation will never be called if there is no number in the stack
 #include "header.h"
 
 class MinStack {
+    stack<int> s;
+    stack<int> m;
 public:
-    MinStack() {
-        // do initialization if necessary
-    }
+    MinStack() {}
 
     void push(int number) {
-        // write your code here
+        s.push(number);
+        if(m.empty() || m.top()>=number) m.push(number);
     }
 
     int pop() {
-        // write your code here
+        int n = s.top();
+        s.pop();
+        if(!m.empty() && m.top() == n) m.pop();
+        return n;
     }
 
     int min() {
-        // write your code here
+        return m.top();
     }
 };
 
