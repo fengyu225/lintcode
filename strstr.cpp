@@ -23,9 +23,26 @@ Not necessary. When you meet this problem in a real interview, the interviewer m
 #include "header.h"
 
 int strStr(const char *source, const char *target) {
-
+    if(!source || !target) return -1;
+    int s_len = strlen(source), t_len = strlen(target);
+    if(t_len>s_len) return -1;
+    const char* s_curr = source, *t_curr = target;
+    while(*s_curr){
+        if(!*t_curr) return s_curr-(t_curr-target)-source;
+        if(*s_curr == *t_curr){
+            s_curr++;
+            t_curr++;
+        }
+        else{
+            s_curr = s_curr-(t_curr-target)+1;
+            t_curr = target;
+        }
+    }
+    if(!*t_curr) return s_curr-(t_curr-target)-source;
+    return -1;
 }
 
 int main(){
+    cout<<strStr("source", "rcd")<<endl;
     return 0;
 }
