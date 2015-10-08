@@ -14,6 +14,17 @@ If k1 = 10 and k2 = 22, then your function should return [12, 20, 22].
 
 #include "header.h"
 
+TreeNode* getNext(TreeNode* curr){
+    if(!root) return NULL;
+    TreeNode* res;
+    if(curr->right)
+        for(res = curr->right;res->left;res = res->left);
+    else{
+         
+    }
+    return res;
+}
+
 vector<int> searchRange(TreeNode* root, int k1, int k2) {
     vector<int> res;
     return res;
