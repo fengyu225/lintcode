@@ -42,11 +42,44 @@ Not necessary. When you meet this problem in a real interview, the interviewer m
 //    return -1;
 //}
 
-int strStr(const char *source, const char *target) {
-    
+void build_next(vector<int>& next, const char* target, int t_len){
+    int k = -1, curr = 0;
+    next[0] = -1;
+    while(curr<t_len){
+        if(k == -1 || target[curr] == target[k]){
+            k++;
+            curr++;
+            next[curr]=k;
+        }
+        else k = next[k];
+    }
 }
 
+int strStr(const char *source, const char *target) {
+    //kmp 
+    if(!source || !target) return -1;
+    int s_len = strlen(source), t_len = strlen(target);
+    if(t_len>s_len) return -1;
+    vector<int> next(t_len+1, -1);
+    build_next(next, target, t_len);
+    int s_curr = 0, t_curr = 0;
+    while(s_curr<s_len){
+        if(t_curr == t_len) return s_curr-t_curr;
+        if(source[s_curr] == target[t_curr]){
+            s_curr++;
+            t_curr++;
+        }
+        else if(next[t_curr] == -1){
+            s_curr++;
+            t_curr = 0;
+        }
+        else t_curr = next[t_curr];
+    }
+    if(t_curr == t_len) return s_curr-t_curr;
+    return -1;
+}   
+
 int main(){
-    cout<<strStr("source", "rcd")<<endl;
+    cout<<strStr("source", "rc")<<endl;
     return 0;
 }
