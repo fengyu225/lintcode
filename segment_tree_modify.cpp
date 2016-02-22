@@ -37,10 +37,46 @@ Do it in O(h) time, h is the height of the segment tree.
 
 #include "header.h"
 
-public void modify(SegmentTreeNode root, int index, int value) {
+SegmentTreeNode* build_helper(int start, int end, vector<int>& A){
+    if(start>end) return NULL;
+    SegmentTreeNode* root = new SegmentTreeNode(start, end);
+    if(start == end){
+        root->max = A[start];
+        return root;
+    }
+    int m = start+(end-start)/2;
+    SegmentTreeNode* l = build_helper(start, m, A);
+    SegmentTreeNode* r = build_helper(m+1, end, A);
+    root->left = l;
+    root->right = r;
+    root->max = max(l->max, r->max);
+    return root;
+}
 
+SegmentTreeNode * build(vector<int>& A) {
+    int sz = A.size();
+    if(sz == 0) return NULL;
+    return build_helper(0, sz-1, A);
+}
+
+void modify(SegmentTreeNode *root, int index, int value) {
+    if(!root) return;
+    if(root->start == index && root->end == index){
+        root->max = value;
+        return;
+    }
+    int m = root->start+(root->end-root->start)/2;
+    if(index<=m) modify(root->left, index, value);
+    if(index>m) modify(root->right, index, value);
+    root->max = max(root->left?root->left->max:INT_MIN, root->right?root->right->max:INT_MIN);
 }
 
 int main(){
+    vector<int> nums = {2, 1, 3, 4};
+    SegmentTreeNode* root = build(nums);
+    printSegmentTree(root);
+    modify(root, 2, 4);
+    cout<<endl;
+    printSegmentTree(root);
     return 0;
 }
