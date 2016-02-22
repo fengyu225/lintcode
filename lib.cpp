@@ -7,7 +7,7 @@ using namespace std;
 
 void printSegmentTree(SegmentTreeNode* root){
     if(!root) return;
-    cout<<"["<<root->start<<" "<<root->end<<"]"<<endl;
+    cout<<"["<<root->start<<" "<<root->end<<"]: "<<root->max<<endl;
     printSegmentTree(root->left);
     printSegmentTree(root->right);
 }
