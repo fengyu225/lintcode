@@ -20,16 +20,16 @@ int kthLargestElement(int k, vector<int> nums) {
     int sz = nums.size();
     int l = 0, r = sz-1;
     while(l<r){
-        int tail = l, curr=l+1;
+        int curr = l+1, tail = l;
         for(;curr<=r;curr++)
-            if(nums[curr]>nums[l]) swap(nums[curr], nums[++tail]);
+            if(nums[curr]>=nums[l]) swap(nums[++tail], nums[curr]);
         swap(nums[tail], nums[l]);
         if(tail-l+1 == k) return nums[tail];
-        else if(tail-l+1>k) r=tail-1;
-        else{
+        else if(tail-l+1 < k){
             k -= (tail-l+1);
             l = tail+1;
         }
+        else r = tail;
     }
     return nums[l];
 }
