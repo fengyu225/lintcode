@@ -50,16 +50,9 @@ SegmentTreeNode * build(int start, int end) {
     return curr;
 }
 
-void print(SegmentTreeNode* root){
-    if(!root) return;
-    cout<<"["<<root->start<<" "<<root->end<<"]"<<endl;
-    print(root->left);
-    print(root->right);
-}
-
 int main(){
     SegmentTreeNode* root = build(1, 4);
-    print(root);
+    printSegmentTree(root);
     cout<<endl;
     return 0;
 }
