@@ -54,9 +54,7 @@ vector<int> intervalMinNumber(vector<int> &A, vector<Interval> &queries){
     vector<int> res;
     if(sz == 0) return res;
     SegmentTreeNodeMin* root = build(A);
-    for(Interval i:queries){
-        res.push_back(query(root, i.start, i.end));
-    }
+    for(Interval i:queries) res.push_back(query(root, i.start, i.end));
     return res;
 }
 
