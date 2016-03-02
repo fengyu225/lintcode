@@ -59,15 +59,52 @@ int numIslands(vector<vector<bool> >& grid) {
 }
 */
 
-pair<int,int> f(pair<int,int>& a, pair<int,int>& b){
+pair<int,int> f(pair<int,int> a, vector<vector<pair<int,int> > >& parents){
+    pair<int,int> curr = a;
+    if(curr.first == -1 && curr.second == -1) return curr;
+    pair<int,int> null = make_pair(-1,-1);
+    while(parents[curr.first][curr.second] != null){
+        curr = parents[curr.first][curr.second];
+    }
+    while(parents[a.first][a.second] != null){
+        pair<int,int> temp = parents[a.first][a.second];
+        parents[a.first][a.second] = curr;
+        a = temp;
+    }    
+    return curr;
+}
 
+bool u(pair<int,int> a, pair<int,int> b, vector<vector<pair<int,int> > >& parents){
+    pair<int,int> null = make_pair(-1,-1);
+    pair<int,int> a_p = f(a,parents);
+    pair<int,int> b_p = f(b,parents);
+    if(a_p == b_p && a_p != null) return false;
+    parents[a_p.first][a_p.second] = b_p;
+    return true;
 }
 
 int numIslands(vector<vector<bool> >& grid) {
     if(grid.size() == 0 || grid[0].size() == 0) return 0;
     int r = grid.size(), c = grid[0].size();
-    vector<vector<int> > parents(r, vector<int>(c, -1));
-    
+    vector<vector<pair<int,int> > > parents(r, vector<pair<int,int> >(c, make_pair(-1,-1)));
+    int res = 0;
+    for(int i=0; i<r; i++){
+        for(int j=0; j<c; j++){
+            if(grid[i][j] == false) continue;
+            res++;
+            bool temp = false;
+            if(j-1>=0 && grid[i][j-1] == true){
+                temp = u(make_pair(i,j-1), make_pair(i,j), parents);
+                if(temp) res--;
+            }
+            temp = false;
+            if(i-1>=0 && grid[i-1][j] == true){
+                temp = u(make_pair(i-1,j), make_pair(i,j), parents);
+                if(temp) res--;
+            }
+        }
+    }
+    return res;
 }
 
 int main(){
