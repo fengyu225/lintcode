@@ -18,6 +18,7 @@ X O X X
 
 #include "header.h"
 
+/* using BFS
 void setBoarder(vector<vector<char> >& board, int i, int j, int r, int c){
     if(board[i][j] != 'O') return;
     board[i][j] = 'G';
@@ -61,6 +62,11 @@ void surroundedRegions(vector<vector<char> >& board) {
         }
     } 
 }   
+*/
+
+void surroundedRegions(vector<vector<char>>& board){
+
+}
 
 int main(){
     vector<vector<char> > board = {
