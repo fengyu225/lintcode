@@ -79,7 +79,6 @@ pair<int,int> f(vector<vector<pair<int,int> > >& parent, int i, int j){
 }
 
 void u(vector<vector<pair<int,int> > >& parent, int i, int j, int a, int b){
-    cout<<"u: "<<i<<", "<<j<<" "<<a<<", "<<b<<endl;
     pair<int,int> l_p = f(parent, i, j);
     pair<int,int> r_p = f(parent, a, b);
     if(l_p == r_p && l_p.first>=0) return;
