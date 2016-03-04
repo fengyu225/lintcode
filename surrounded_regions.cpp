@@ -64,9 +64,55 @@ void surroundedRegions(vector<vector<char> >& board) {
 }   
 */
 
+pair<int,int> f(vector<vector<pair<int,int> > >& parent, int i, int j){
+    pair<int,int> curr = make_pair(i,j);
+    while(parent[curr.first][curr.second].first >= 0){
+        curr = parent[curr.first][curr.second];
+    }
+    pair<int,int> temp = make_pair(i,j);
+    while(parent[temp.first][temp.second].first >= 0){
+        pair<int,int> x = parent[temp.first][temp.second];
+        parent[temp.first][temp.second] = curr;
+        temp = x;
+    }
+    return curr;
+}
+
+void u(vector<vector<pair<int,int> > >& parent, int i, int j, int a, int b){
+    cout<<"u: "<<i<<", "<<j<<" "<<a<<", "<<b<<endl;
+    pair<int,int> l_p = f(parent, i, j);
+    pair<int,int> r_p = f(parent, a, b);
+    if(l_p == r_p && l_p.first>=0) return;
+    bool boarder = 
+        parent[l_p.first][l_p.second].first == -2 ||
+        parent[r_p.first][r_p.second].first == -2;
+    parent[l_p.first][l_p.second] = r_p;
+    if(boarder) parent[r_p.first][r_p.second].first = parent[r_p.first][r_p.second].second = -2;
+}
+
 void surroundedRegions(vector<vector<char> >& board){
     if(board.size() == 0 || board[0].size() == 0) return;
     int r = board.size(), c = board[0].size();
+    vector<vector<pair<int,int> > > parent(r, vector<pair<int,int> >(c, make_pair(-1,-1)));
+    for(int i=0; i<r; i++){
+        for(int j=0; j<c; j++){
+            if(board[i][j] == 'X') continue;
+            if(i == 0 || i == r-1 || j == 0 || j == c-1)
+                parent[i][j] = make_pair(-2,-2);
+            if(j > 0 && board[i][j-1] == 'O')
+                u(parent, i, j, i, j-1);
+            if(i > 0 && board[i-1][j] == 'O')
+                u(parent, i, j, i-1, j);
+        }
+    } 
+    for(int i=0; i<r; i++){
+        for(int j=0; j<c; j++){
+            if(board[i][j] == 'X') continue;
+            pair<int,int> p = f(parent, i, j);
+            p = parent[p.first][p.second];
+            if(p.first == -1 && p.second == -1) board[i][j] = 'X';
+        }
+    }
 }
 
 int main(){
