@@ -64,8 +64,9 @@ void surroundedRegions(vector<vector<char> >& board) {
 }   
 */
 
-void surroundedRegions(vector<vector<char>>& board){
-
+void surroundedRegions(vector<vector<char> >& board){
+    if(board.size() == 0 || board[0].size() == 0) return;
+    int r = board.size(), c = board[0].size();
 }
 
 int main(){
