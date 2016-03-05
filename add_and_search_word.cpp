@@ -45,17 +45,17 @@ class TNode{
 
 class T{
     TNode* root;
-        bool search(TNode* root, string& key, int i){
-            if(root == NULL) return false;
-            if(i == key.length()) return root->inChildren('a'+27);
-            if(key[i] != '.') return search(root->getChild(key[i]), key, i+1);
-            vector<TNode*> children = root->getChildren();
-            for(TNode* n : children){
-                if(n == NULL) continue;
-                if(search(n, key, i+1)) return true;
-            }
-            return false;
+    bool search(TNode* root, string& key, int i){
+        if(root == NULL) return false;
+        if(i == key.length()) return root->inChildren('a'+27);
+        if(key[i] != '.') return search(root->getChild(key[i]), key, i+1);
+        vector<TNode*> children = root->getChildren();
+        for(TNode* n : children){
+            if(n == NULL) continue;
+            if(search(n, key, i+1)) return true;
         }
+        return false;
+    }
     public:
         T(){
             root = new TNode('a'+26);
