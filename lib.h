@@ -21,6 +21,18 @@ class SegmentTreeNode {
         SegmentTreeNode(int s, int e):max(0),start(s),end(e),left(NULL),right(NULL) {}
 };
 
+struct DirectedGraphNode {
+    int label;
+    vector<DirectedGraphNode *> neighbors;
+    DirectedGraphNode(int x) : label(x) {};
+};
+
+struct UndirectedGraphNode {
+    int label;
+    vector<UndirectedGraphNode *> neighbors;
+    UndirectedGraphNode(int x) : label(x) {};
+};
+
 void printSegmentTree(SegmentTreeNode* root);
 
 ListNode* create_list(int arr[], int n);
@@ -57,13 +69,6 @@ class TreeLinkNode {
 };
 
 TreeLinkNode* create_link_tree(std::vector<std::string> v);
-
-class UndirectedGraphNode {
-    public:
-        int label;
-        vector<UndirectedGraphNode*> neighbors;
-        UndirectedGraphNode(int x) : label(x) {};
-};
 
 struct RandomListNode {
     int label;
