@@ -17,9 +17,10 @@ return {"dog", "dad", "can", "again"}
 #include "header.h"
 
 class TNode{
-    public:
+    private:
         vector<TNode*> children;
         char c;
+    public:
         TNode(char v){
             c = v; 
             children = vector<TNode*>(28, NULL);
