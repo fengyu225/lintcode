@@ -11,7 +11,15 @@ For A = [1, 2, 3], return [6, 3, 2].
 
 vector<long long> productExcludeItself(vector<int> &nums) {
     int sz = nums.size();
-    vector<long long> res(sz, 0);
+    vector<long long> res(sz, 1);
+    long long left = 1;
+    long long right = 1;
+    for(int i=0; i<sz; i++){
+        res[i] *= left;
+        res[sz-1-i] *= right;
+        left *= nums[i];
+        right *= nums[sz-1-i];
+    }
     return res;
 }
 
