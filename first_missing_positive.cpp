@@ -15,9 +15,7 @@ int firstMissingPositive(vector<int> A) {
         while(A[i]>=0 && A[i]<sz && A[i] != i && A[i] != A[A[i]])
             swap(A[i], A[A[i]]);
     }
-    for(int i=1; i<sz; i++){
-        if(A[i] != i) return i;
-    }
+    for(int i=1; i<sz; i++) if(A[i] != i) return i;
     return A[0] == sz?sz+1:sz;
 }
 
