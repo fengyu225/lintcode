@@ -15,13 +15,21 @@ After merge, A will be filled as [1, 2, 3, 4, 5]
 #include "header.h"
 
 void mergeSortedArray(int A[], int m, int B[], int n) {
-    
+    int curr = m+n-1;
+    int curr_a = m-1;
+    int curr_b = n-1;
+    while(curr_a>=0 || curr_b >=0){
+        if(curr_a<0 || (curr_b>=0 && B[curr_b]>A[curr_a]))
+            A[curr--] = B[curr_b--];
+        else A[curr--] = A[curr_a--];
+    }
 }
 
 int main(){
-    vector<int> A = {1, 2, 3, 0, 0};
-    vector<int> B = {4, 5};
+    int A[] = {1, 2, 3, 0, 0};
+    int B[] = {4, 5};
     mergeSortedArray(A, 3, B, 2);
-    print_vector<int>(A);
+    for(int i=0; i<5; i++) cout<<A[i]<<" ";
+    cout<<endl;
     return 0;
 }
