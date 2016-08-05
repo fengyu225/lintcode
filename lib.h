@@ -70,13 +70,6 @@ class TreeLinkNode {
 
 TreeLinkNode* create_link_tree(std::vector<std::string> v);
 
-class UndirectedGraphNode {
-    public:
-        int label;
-        vector<UndirectedGraphNode*> neighbors;
-        UndirectedGraphNode(int x) : label(x) {};
-};
-
 struct RandomListNode {
     int label;
     RandomListNode *next, *random;
